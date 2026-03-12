@@ -1,0 +1,45 @@
+
+
+<div class="form-card">
+  <h2>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
+  
+  <div *ngIf="errorMessage" class="error-banner">
+    {{ errorMessage }}
+  </div>
+
+  <form #bookForm="ngForm" (ngSubmit)="bookForm.form.valid && saveBook()" class="book-form">
+    
+    <div class="form-group">
+      <label>ID</label>
+      <input type="number" [(ngModel)]="book.id" name="id" required 
+             [disabled]="isEditMode" placeholder="Ex: 101">
+      <small *ngIf="bookForm.submitted && !book.id" class="text-danger">ID is required.</small>
+    </div>
+
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" [(ngModel)]="book.title" name="title" required placeholder="Enter book title">
+      <small *ngIf="bookForm.submitted && !book.title" class="text-danger">Title is required.</small>
+    </div>
+
+    <div class="form-group">
+      <label>Author</label>
+      <input type="text" [(ngModel)]="book.author" name="author" required placeholder="Enter author name">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>ISBN</label>
+        <input type="text" [(ngModel)]="book.isbn" name="isbn" required placeholder="ISBN-13">
+      </div>
+      <div class="form-group">
+        <label>Publication Date</label>
+        <input type="date" [(ngModel)]="book.publicationDate" name="publicationDate" required>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">
+      {{ isEditMode ? 'Update Details' : 'Save Book' }}
+    </button>
+  </form>
+</div>
